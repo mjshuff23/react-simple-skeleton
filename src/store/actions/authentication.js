@@ -12,6 +12,8 @@ export const login = (username, password) => async(dispatch) => {
 
     if (response.ok) {
         const {authenticated, username} = await response.json()
+        if  (!authenticated) return;
+
         console.log(username);
         dispatch(setUser(username));
     }
