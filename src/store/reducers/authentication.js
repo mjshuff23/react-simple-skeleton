@@ -1,7 +1,6 @@
 import { SET_USER } from '../actions/authentication'
 
 const initialState = {
-  userId: '',
   username: '',
 }
 
