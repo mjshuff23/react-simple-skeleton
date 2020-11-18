@@ -21,4 +21,8 @@
 >>> npm install redux react-redux react-router-dom redux-thunk
 ```
 
-### 3. 
+### 3. Create `config.js` in root directory
+
+```js
+export const baseApiUrl = process.env.BASE_API_URL || `http://localhost:5000/api`
+```
