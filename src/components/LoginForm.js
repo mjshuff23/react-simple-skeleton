@@ -11,7 +11,7 @@ const LoginForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(login(email, password));
+    dispatch(login(username, password));
   };
 
   const updateProperty = (callback) => (e) => {

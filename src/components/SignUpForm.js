@@ -6,7 +6,7 @@ const SignUpForm = () => {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
+  const [confirm, setConfirm] = useState('');
 
   const dispatch = useDispatch();
 
@@ -18,11 +18,10 @@ const SignUpForm = () => {
     e.preventDefault();
     console.log(e.target)
     const newUser = {
-      firstName,
-      lastName,
+      username,
       email,
       password,
-      confirmPassword,
+      confirm,
     };
     console.log("handleSubmit -> newUser", newUser)
     dispatch(signUp(newUser))
@@ -52,8 +51,8 @@ const SignUpForm = () => {
         <input
           type='password'
           placeholder='Confirm Password'
-          value={confirmPassword}
-          onChange={updateProperty(setConfirmPassword)} />
+          value={confirm}
+          onChange={updateProperty(setConfirm)} />
       <button type='submit'>Sign Up</button>
       </form>
     </main>
