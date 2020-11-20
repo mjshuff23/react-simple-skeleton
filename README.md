@@ -2,42 +2,46 @@
 
 ## **Table of Contents**
 
-1. [Initial Setup](#1-initial-setup)
+1. [Create React App](#1-create-react-app)
+2. [Install Dependencies](#2-install-dependencies)
+3. [Create `config.js` in root directory](#3-Create-configjs-in-root-directory)
+4. [Create `store/authentication.js`](#4-Create-storeauthenticationjs)
+5. [Configure the Redux Store](#5-Configure-the-Redux-Store)
+6. [Modify `index.js`](#4-Modify-indexjs)
+7. [Create a components dir and `SignUpForm.js` within](#7-Create-a-components-dir-and-SignUpFormjs-within)
+8. [Create `LoginForm.js` Component](#8-Create-LoginFormjs-Component)
+9. [Placeholder Component for Main Page](#9-Placeholder-Component-for-Main-Page)
+10. [Create `Navigation.js`](#10-Create-Navigationjs)
+11. [Create `ProtectedRoute.js`](#11-Create-ProtectedRoutejs)
+12. [Modify `App.js`](#12-modify-appjs)
 
-    1. [Create React App](#1-create-react-app)
-    2. [Install Dependencies](#2-install-dependencies)
-    3. [Create `config.js` in root directory](#3-Create-configjs-in-root-directory)
-    4. [Create `store/authentication.js`](#4-Create-storeauthenticationjs)
-    5. [Configure the Redux Store](#5-Configure-the-Redux-Store)
-    6. [Modify `index.js`](#4-Modify-indexjs)
-    7. [Create a components dir and `SignUpForm.js` within](#7-Create-a-components-dir-and-SignUpFormjs-within)
-    8. [Create `LoginForm.js` Component](#8-Create-LoginFormjs-Component)
-    9. [Placeholder Component for Main Page](#9-Placeholder-Component-for-Main-Page)
-    10. [Create `Navigation.js`](#10-Create-Navigationjs)
-    11. [Create `ProtectedRoute.js`](#11-Create-ProtectedRoutejs)
-    12. [Modify `App.js`](#12-modify-appjs)
+---
 
-## 1. Initial Setup
-
-### 1. Create React App
+## 1. Create React App
 
 ```bash
 >>> npx create-react-app {{ project name }} --template @appacademy/simple
 ```
 
-### 2. Install Dependencies
+---
+
+## 2. Install Dependencies
 
 ```bash
 >>> npm install redux react-redux react-router-dom redux-thunk
 ```
 
-### 3. Create `config.js` in src directory
+---
+
+## 3. Create `config.js` in src directory
 
 ```js
 export const baseApiUrl = process.env.BASE_API_URL || `http://localhost:5000/api`
 ```
 
-### 4. Create `store/authentication.js`
+---
+
+## 4. Create `store/authentication.js`
 
 ```js
 import { baseApiUrl } from '../config';
@@ -112,7 +116,9 @@ export default function reducer(state = {}, action) {
 }
 ```
 
-### 5. Configure the Redux Store
+---
+
+## 5. Configure the Redux Store
 
 ```js
 import { createStore, applyMiddleware, combineReducers, compose } from 'redux';
@@ -137,7 +143,9 @@ const configureStore = initialState => {
 export default configureStore;
 ```
 
-### 6. Modify `index.js`
+---
+
+## 6. Modify `index.js`
 
 ```js
 import React from 'react';
@@ -162,7 +170,9 @@ ReactDOM.render(
 );
 ```
 
-### 7. Create a components dir and `SignUpForm.js` within
+---
+
+## 7. Create a components dir and `SignUpForm.js` within
 
 ```js
 import React, { useState } from 'react';
@@ -229,7 +239,9 @@ const SignUpForm = () => {
 export default SignUpForm;
 ```
 
-### 8. Create `LoginForm.js` Component
+---
+
+## 8. Create `LoginForm.js` Component
 
 ```js
 import React, { useState } from 'react';
@@ -281,7 +293,9 @@ const LoginForm = () => {
 export default LoginForm;
 ```
 
-### 9. Placeholder Component for Main Page
+---
+
+## 9. Placeholder Component for Main Page
 
 ```js
 import React from 'react';
@@ -296,7 +310,9 @@ const PlaceHolder = () => {
 export default PlaceHolder;
 ```
 
-### 10. Create `Navigation.js`
+---
+
+## 10. Create `Navigation.js`
 
 ```js
 import React from 'react'
@@ -313,7 +329,9 @@ const Navigation = () => (
 export default Navigation;
 ```
 
-### 11. Create `ProtectedRoute.js`
+---
+
+## 11. Create `ProtectedRoute.js`
 
 ```js
 import React from 'react';
@@ -330,7 +348,9 @@ const ProtectedRoute = props => {
 export default ProtectedRoute;
 ```
 
-### 12. Modify `App.js`
+---
+
+## 12. Modify `App.js`
 
 ```js
 import React, { useState, useEffect } from 'react';
