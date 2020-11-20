@@ -45,6 +45,7 @@ export const login = (username, password) => async dispatch => {
 
 
 export const logout = () => async dispatch => {
+  console.log('LOGOUT!!!!!!!!!!!')
   window.localStorage.removeItem(TOKEN_KEY);
   dispatch(removeToken());
 }

@@ -14,6 +14,7 @@
 10. [Create `Navigation.js`](#10-Create-Navigationjs)
 11. [Create `ProtectedRoute.js`](#11-Create-ProtectedRoutejs)
 12. [Modify `App.js`](#12-modify-appjs)
+13. [Modify `PlaceHolder.js` for logout functionality](#13-modify-placeholderjs-for-logout-functionality)
 
 ---
 
@@ -391,4 +392,29 @@ const App = () => {
 
 
 export default App;
+```
+
+---
+
+## 13. Modify `PlaceHolder.js` for logout functionality
+
+```js
+import { useDispatch } from 'react-redux';
+import { logout } from '../store/authentication';
+
+
+const PlaceHolder = () => {
+  const dispatch = useDispatch();
+  
+  const handleClick = () => dispatch(logout());
+    
+  return (
+    <>
+      <h1>Protected Main Page</h1>
+      <button onClick={handleClick} >Log Out</button>
+    </>
+  )
+};
+
+export default PlaceHolder;
 ```
