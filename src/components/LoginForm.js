@@ -4,14 +4,14 @@ import { Redirect } from 'react-router-dom';
 import { login } from '../store/authentication';
 
 const LoginForm = () => {
-  const [username, setUsername] = useState('demo@example.com');
-  const [password, setPassword] = useState('password');
+  const [username, setUsername] = useState('demo_user');
+  const [password, setPassword] = useState('Password');
   const token = useSelector((state) => state.authentication.token);
   const dispatch = useDispatch();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(login(email, password));
+    dispatch(login(username, password));
   };
 
   const updateProperty = (callback) => (e) => {

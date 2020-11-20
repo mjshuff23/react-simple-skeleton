@@ -9,8 +9,8 @@ import { loadToken } from './store/authentication';
 import { useSelector, useDispatch } from 'react-redux';
 
 const App = () => {
-  // const token = useSelector(state => state.authentication.token);
-  const token = false
+  const token = useSelector(state => state.authentication.token);
+  // const token = false
   const [loaded, setLoaded] = useState(false);
   const dispatch = useDispatch();
   
