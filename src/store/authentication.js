@@ -4,7 +4,7 @@ const TOKEN_KEY = 'authentication/TOKEN_KEY';
 const SET_TOKEN = 'authentication/SET_TOKEN';
 const REMOVE_TOKEN = 'authentication/REMOVE_TOKEN';
 
-export const removeToken = token => ({ type: REMOVE_TOKEN });
+export const removeToken = () => ({ type: REMOVE_TOKEN });
 export const setToken = token => ({ type: SET_TOKEN, token });
 
 export const loadToken = () => async dispatch => {
@@ -35,26 +35,18 @@ export const login = (username, password) => async dispatch => {
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ username, password }),
   });
-
+  
   if (response.ok) {
-    const { token } = await response.json();
+    const token = await response.json();
     window.localStorage.setItem(TOKEN_KEY, token);
     dispatch(setToken(token));
   }
 };
 
 
-export const logout = () => async (dispatch, getState) => {
-  const { authentication: { token } } = getState();
-  const response = await fetch(`${baseApiUrl}/session`, {
-    method: 'delete',
-    headers: { Authorization: `Bearer ${token}` },
-  });
-
-  if (response.ok) {
-    window.localStorage.removeItem(TOKEN_KEY);
-    dispatch(removeToken());
-  }
+export const logout = () => async dispatch => {
+  window.localStorage.removeItem(TOKEN_KEY);
+  dispatch(removeToken());
 }
 
 

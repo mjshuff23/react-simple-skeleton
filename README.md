@@ -8,7 +8,14 @@
     2. [Install Dependencies](#2-install-dependencies)
     3. [Create `config.js` in root directory](#3-Create-configjs-in-root-directory)
     4. [Create `store/authentication.js`](#4-Create-storeauthenticationjs)
-    4. [Modify `index.js`](#4-Modify-indexjs)
+    5. [Configure the Redux Store](#5-Configure-the-Redux-Store)
+    6. [Modify `index.js`](#4-Modify-indexjs)
+    7. [Create a components dir and `SignUpForm.js` within](#7-Create-a-components-dir-and-SignUpFormjs-within)
+    8. [Create `LoginForm.js` Component](#8-Create-LoginFormjs-Component)
+    9. [Placeholder Component for Main Page](#9-Placeholder-Component-for-Main-Page)
+    10. [Create `Navigation.js`](#10-Create-Navigationjs)
+    11. [Create `ProtectedRoute.js`](#11-Create-ProtectedRoutejs)
+    12. [Modify `App.js`](#12-modify-appjs)
 
 ## 1. Initial Setup
 
@@ -39,7 +46,7 @@ const TOKEN_KEY = 'authentication/TOKEN_KEY';
 const SET_TOKEN = 'authentication/SET_TOKEN';
 const REMOVE_TOKEN = 'authentication/REMOVE_TOKEN';
 
-export const removeToken = token => ({ type: REMOVE_TOKEN });
+export const removeToken = () => ({ type: REMOVE_TOKEN });
 export const setToken = token => ({ type: SET_TOKEN, token });
 
 export const loadToken = () => async dispatch => {
@@ -72,24 +79,16 @@ export const login = (username, password) => async dispatch => {
   });
 
   if (response.ok) {
-    const { token } = await response.json();
+    const token = await response.json();
     window.localStorage.setItem(TOKEN_KEY, token);
     dispatch(setToken(token));
   }
 };
 
 
-export const logout = () => async (dispatch, getState) => {
-  const { authentication: { token } } = getState();
-  const response = await fetch(`${baseApiUrl}/users`, {
-    method: 'delete',
-    headers: { Authorization: `Bearer ${token}` },
-  });
-
-  if (response.ok) {
-    window.localStorage.removeItem(TOKEN_KEY);
-    dispatch(removeToken());
-  }
+export const logout = () => async dispatch => {
+  window.localStorage.removeItem(TOKEN_KEY);
+  dispatch(removeToken());
 }
 
 
@@ -329,4 +328,47 @@ const ProtectedRoute = props => {
 }
 
 export default ProtectedRoute;
+```
+
+### 12. Modify `App.js`
+
+```js
+import React, { useState, useEffect } from 'react';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import LoginForm from './components/LoginForm';
+import SignUpForm from './components/SignUpForm';
+import PlaceHolder from './components/PlaceHolder';
+import Navigation from './components/Navigation';
+import ProtectedRoute from './components/ProtectedRoute';
+import { loadToken } from './store/authentication';
+import { useSelector, useDispatch } from 'react-redux';
+
+const App = () => {
+  const token = useSelector(state => state.authentication.token);
+  // const token = false
+  const [loaded, setLoaded] = useState(false);
+  const dispatch = useDispatch();
+  
+  useEffect(() => {
+    setLoaded(true);
+    dispatch(loadToken());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+  
+  if (!loaded) return null;
+  
+  return (
+  <BrowserRouter>
+    <Navigation />
+    <Switch>
+      <ProtectedRoute isLoggedIn={token} path='/' exact={ true } component={ PlaceHolder } />
+      <Route path='/login' exact={ true } component={ LoginForm } />
+      <Route path='/signup' exact={ true } component={ SignUpForm } />
+    </Switch>
+  </BrowserRouter>
+  )
+}
+
+
+export default App;
 ```
