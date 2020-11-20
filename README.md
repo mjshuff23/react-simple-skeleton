@@ -407,7 +407,7 @@ const PlaceHolder = () => {
   const dispatch = useDispatch();
   
   const handleClick = () => dispatch(logout());
-    
+
   return (
     <>
       <h1>Protected Main Page</h1>
